@@ -1,0 +1,41 @@
+﻿<html>
+    <head>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    </head>
+    <body>
+        <input list="lista_paises" id="pais" type="text" placeholder="Pais"/>
+        <datalist id="lista_paises"></datalist><br />
+    </body>
+</html>
+
+<script type="text/javascript">
+    // <![CDATA[
+    $("#pais").keyup(function (e) {
+        if ($("#pais").val().length > 0) {
+            $.ajax({
+                type: 'POST',
+                url: 'http://127.0.0.1:5100/getCountries',
+                data: JSON.stringify({ "country": $("#pais").val() }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (response) {
+                    console.log('RESPUESTA:' + response);
+                    var parsedJSON = JSON.parse(response);
+                    var options = '';
+                    for (var i = 0; i < parsedJSON.list_pais.length; i++) {
+                        options += '<option value="' + parsedJSON.list_pais[i].pais + '" />';
+                    }
+                    document.getElementById('lista_paises').innerHTML = options;
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        } else {
+                 document.getElementById('lista_paises').innerHTML = '';
+        }
+    });
+
+    // ]]>
+</script>
+

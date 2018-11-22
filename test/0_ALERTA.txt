@@ -1,0 +1,10 @@
+
+BLOCKED FILE ALERT
+
+A file has been blocked due to the 'Bloqueo JS' rule.
+Context: 'jquery-latest.js'
+Disallowed due to filename
+Ticket Number: '23e0-5bd9-ae5b-0006'
+En caso de necesitar recuperar el archivo que le enviaron, por favor enviar un correo al grupo ADMMS (admms@ta.telecom.com.ar) con el detalle de esta alerta. De requerir asistencia fuera del horario laboral (9hs a 18hs), reportar el caso a SOC@ta.telecom.com.ar.
+
+Gerencia de Seguridad Informática.

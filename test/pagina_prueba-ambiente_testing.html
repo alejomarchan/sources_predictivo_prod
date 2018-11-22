@@ -1,0 +1,158 @@
+﻿<html>
+    <head>
+        <script type="text/javascript" src="./jquery-latest.js"></script>
+    </head>
+    <body>
+        <input id="cantidad" type="text" placeholder="Cantidad" /> (máxima cantidad de elementos que retornará el servicio)<br />
+
+        <input list="lista_paises" id="pais" type="text" placeholder="Pais" />
+        <datalist id="lista_paises"></datalist><br />
+
+        <input list="lista_provincias" id="provincia" type="text" placeholder="Provincia" />
+        <datalist id="lista_provincias"></datalist><br />
+
+        <input list="lista_departamentos" id="departamento" type="text" placeholder="Departamento" />
+        <datalist id="lista_departamentos"></datalist><br />
+
+        <input list="lista_localidades" id="localidad" type="text" placeholder="Localidad" />
+        <datalist id="lista_localidades"></datalist><br />
+
+        <input list="lista_calles" id="calle" type="text" placeholder="Calle" />
+        <datalist id="lista_calles"></datalist><br />
+        <br/>
+        <br/>
+        <br/>
+            Desde Windows ejecutar Chrome con el siguiente comando:
+        <br/>
+            "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --user-data-dir="C:/tmp" --disable-web-security
+        <br/>
+            o
+        <br/>
+            Usar la siguiente extensión de Chrome: Allow-Control-Allow-Origin
+    </body>
+</html>
+
+<script type="text/javascript">
+    // <![CDATA[
+    $("#pais").keyup(function (e) {
+        if ($("#pais").val().length > 2) {
+            $.ajax({
+                type: 'POST',
+                url: 'http://sr-docker-xt01.corp.cablevision.com.ar:5003/getCountry',
+                data: JSON.stringify({ "country": $("#pais").val(), "quantity": $("#cantidad").val() }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (response) {
+                    console.log('RESPUESTA:' + response);
+                    var parsedJSON = JSON.parse(response);
+                    var options = '';
+                    for (var i = 0; i < parsedJSON.list_pais.length; i++) {
+                        options += '<option value="' + parsedJSON.list_pais[i].pais + '" />';
+                    }
+                    document.getElementById('lista_paises').innerHTML = options;
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+
+    $("#provincia").keyup(function (e) {
+        if ($("#provincia").val().length > 2) {
+            $.ajax({
+                type: 'POST',
+                url: 'http://sr-docker-xt01.corp.cablevision.com.ar:5003/getStateOrProvince',
+                data: JSON.stringify({ "country": $("#pais").val(), "stateOrProvince": $("#provincia").val(), "quantity": $("#cantidad").val() }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (response) {
+                    console.log('RESPUESTA:' + response);
+                    var parsedJSON = JSON.parse(response);
+                    var options = '';
+                    for (var i = 0; i < parsedJSON.list_provincia.length; i++) {
+                        options += '<option value="' + parsedJSON.list_provincia[i].provincia + '" />';
+                    }
+                    document.getElementById('lista_provincias').innerHTML = options;
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+
+    $("#departamento").keyup(function (e) {
+        if ($("#departamento").val().length > 2) {
+            $.ajax({
+                type: 'POST',
+                url: 'http://sr-docker-xt01.corp.cablevision.com.ar:5003/getCity',
+                data: JSON.stringify({ "country": $("#pais").val(), "stateOrProvince": $("#provincia").val(), "city": $("#departamento").val(), "quantity": $("#cantidad").val() }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (response) {
+                    console.log('RESPUESTA:' + response);
+                    var parsedJSON = JSON.parse(response);
+                    var options = '';
+                    for (var i = 0; i < parsedJSON.list_city.length; i++) {
+                        options += '<option value="' + parsedJSON.list_city[i].city + '" />';
+                    }
+                    document.getElementById('lista_departamentos').innerHTML = options;
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+    
+    $("#localidad").keyup(function (e) {
+        if ($("#localidad").val().length > 2) {
+            $.ajax({
+                type: 'POST',
+                url: 'http://sr-docker-xt01.corp.cablevision.com.ar:5003/getLocality',
+                data: JSON.stringify({ "country": $("#pais").val(), "stateOrProvince": $("#provincia").val(), "city": $("#departamento").val(),"locality": $("#localidad").val(), "quantity": $("#cantidad").val() }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (response) {
+                    console.log('RESPUESTA:' + response);
+                    var parsedJSON = JSON.parse(response);
+                    var options = '';
+                    for (var i = 0; i < parsedJSON.list_localidad.length; i++) {
+                        options += '<option value="' + parsedJSON.list_localidad[i].localidad + '" />';
+                    }
+                    document.getElementById('lista_localidades').innerHTML = options;
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+
+    $("#calle").keyup(function (e) {
+        if ($("#calle").val().length > 2) {
+            $.ajax({
+                type: 'POST',
+                url: 'http://sr-docker-xt01.corp.cablevision.com.ar:5003/getStreets',
+                data: JSON.stringify({ "country": $("#pais").val(), "stateOrProvince": $("#provincia").val(), "city": $("#departamento").val(), "locality": $("#localidad").val(), "street": $("#calle").val(), "quantity": $("#cantidad").val() }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (response) {
+                    console.log('RESPUESTA:' + response);
+                    var parsedJSON = JSON.parse(response);
+                    var options = '';
+                    for (var i = 0; i < parsedJSON.list_street.length; i++) {
+                        options += '<option value="' + parsedJSON.list_street[i].calle + '" />';
+                    }
+                    document.getElementById('lista_calles').innerHTML = options;
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+    // ]]>
+</script>
+

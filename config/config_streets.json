@@ -1,0 +1,12 @@
+{
+  "CONFIG": {
+    "GRAYLOG_HOST": "syslog.corp.cablevision.com.ar",
+    "GRAYLOG_PORT": 12201,
+    "LOG_TAG": "Microservicio getStreets",
+    "PROFILE_NAME": "config_streets",
+    "DESCRIPTION": "Microservicio predictivo para calles",
+    "DB": "VUC/VUC@MUGISD.WORLD",
+    "LIMIT_PER_SECOND": "3",
+    "MAX_RETURN": "10"
+  }
+}

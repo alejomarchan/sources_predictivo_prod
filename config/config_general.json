@@ -1,0 +1,9 @@
+{
+  "CONFIG": {
+    "GRAYLOG_HOST": "syslog.corp.cablevision.com.ar",
+    "GRAYLOG_PORT": 12201,
+    "DB": "VUC/vuc1234@alejo",
+    "LIMIT_PER_SECOND": "4",
+    "MAX_RETURN": "10"
+  }
+}
